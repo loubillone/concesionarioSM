@@ -11,7 +11,7 @@ import "../css/navegador.css";
 const Navegador = () => {
   return (
     <div>
-      <Navbar expand="lg" bg="dark" data-bs-theme="dark">
+      <Navbar expand="lg" data-bs-theme="dark" className="back_nav">
         <Container fluid>
           <Navbar.Brand href="#">
             <img src={logoSMnegro} alt="" className="logo_nav " />
