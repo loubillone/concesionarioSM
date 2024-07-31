@@ -9,6 +9,8 @@ const Registro = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [createMsg, setCreateMsg] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,14 +53,6 @@ const Registro = () => {
         title: "Oops...",
         text: "Las contraseñas no coinciden",
       });
-    } else {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Usuario registrado",
-        showConfirmButton: false,
-        timer: 1500,
-      });
     }
 
     // setUsuario([name, ...usuario]);
@@ -75,9 +69,22 @@ const Registro = () => {
         password,
       });
 
-      console.log(resp);
+      setCreateMsg(resp.data.msg);
+
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: createMsg,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (error) {
-      console.log(error);
+      setErrorMsg(error.response.data.msg);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: errorMsg,
+      });
     }
   };
   return (
