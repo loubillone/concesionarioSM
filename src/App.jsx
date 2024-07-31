@@ -5,7 +5,6 @@ import Navegador from "./components/Navegador";
 const App = () => {
   return (
     <div>
-      <Navegador />
       <AppRouter />
     </div>
   );
