@@ -90,6 +90,7 @@ const Registro = () => {
   return (
     <div>
       <div className="container">
+        <h1>REGISTRO</h1>
         <div className="row my-4">
           <div className="col-10 offset-1 col-md-4 offset-md-4">
             <Form onSubmit={handleSubmit}>
