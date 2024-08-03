@@ -8,6 +8,7 @@ const Admin = () => {
   useEffect(() => {
     listaUsuariosBack();
   }, []);
+
   const listaUsuariosBack = async () => {
     try {
       const resp = await testApi.get("/admin/listaUsuarios");
@@ -33,6 +34,7 @@ const Admin = () => {
                   <th>Email</th>
                   <th>Rol</th>
                   <th>Eliminar</th>
+                  <th>Editar</th>
                 </tr>
               </thead>
               <tbody>
@@ -44,9 +46,13 @@ const Admin = () => {
                       <td>{usuario.email}</td>
                       <td>{usuario.rol}</td>
                       <td>
-                        <button class="btn btn-danger">
-                          {" "}
+                        <button class="btn btn-danger me-2">
                           <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                      <td>
+                        <button className="btn btn-warning">
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
                         </button>
                       </td>
                     </tr>
