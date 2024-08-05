@@ -63,6 +63,15 @@ const Admin = () => {
       console.log(error);
     }
   };
+
+  const eliminarUsuario = async (id) => {
+    try {
+      const resp = await testApi.delete(`/admin/eliminarUsuario/${id}`);
+      listaUsuariosBack();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <Navegador />
@@ -100,7 +109,10 @@ const Admin = () => {
                         </button>
                       </td>
                       <td>
-                        <button className="btn btn-danger me-2">
+                        <button
+                          className="btn btn-danger me-2"
+                          onClick={() => eliminarUsuario(usuario._id)}
+                        >
                           <i className="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
                       </td>
