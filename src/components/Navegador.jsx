@@ -1,9 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logoSMnegro from "../assets/image/logoSMnegro.jpeg";
 import { Link, NavLink } from "react-router-dom";
 import "../css/navegador.css";
+import Swal from "sweetalert2";
 
 const Navegador = () => {
+  const [tokenStatus, setTokenStatus] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setTokenStatus(true);
+    }
+  }, []);
+
+  const cerrarSesion = () => {
+    Swal.fire({
+      title: "Cerrar sesión",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, cerrar sesión!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: "Cerraste sesión",
+          icon: "success",
+        });
+
+        localStorage.removeItem("token");
+        location.replace("/");
+      }
+    });
+  };
+
   return (
     <div>
       <div className="container-fluid">
@@ -96,13 +128,20 @@ const Navegador = () => {
                 </form>
 
                 <div>
-                  <NavLink to="/login">
-                    <button className="btn btn-warning me-2">Inicio</button>
-                  </NavLink>
-
-                  <NavLink to="/registro">
-                    <button className="btn btn-warning me-3">Registro</button>
-                  </NavLink>
+                  {tokenStatus ? (
+                    <NavLink to="/">
+                      <button
+                        className="btn btn-warning me-3"
+                        onClick={cerrarSesion}
+                      >
+                        Cerrar Sesión
+                      </button>
+                    </NavLink>
+                  ) : (
+                    <NavLink to="/login">
+                      <button className="btn btn-warning me-2">Inicio</button>
+                    </NavLink>
+                  )}
                 </div>
               </div>
             </div>
