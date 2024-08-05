@@ -6,46 +6,110 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logoSMnegro from "../assets/image/logoSMnegro.jpeg";
+import { Link, NavLink } from "react-router-dom";
 import "../css/navegador.css";
 
 const Navegador = () => {
   return (
     <div>
-      <Navbar expand="lg" bg="dark" data-bs-theme="dark">
-        <Container fluid>
-          <Navbar.Brand href="#">
-            <img src={logoSMnegro} alt="" className="logo_nav " />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
-              <Nav.Link href="#action1">Inicio</Nav.Link>
-              <NavDropdown title="Vehiculos" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Nuevos</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Usados</NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link href="#action2">Contacto</Nav.Link>
-            </Nav>
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
-          </Navbar.Collapse>
-        </Container>
+      <div className="container-fluid">
+        <div className="row">
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="container-fluid">
+              <Link className="navbar-brand" to="/">
+                <img src={logoSMnegro} alt="logo sm " className="logo_nav" />
+              </Link>
 
-        <div>
-          <button className="btn btn-default"></button>
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div
+                className="collapse navbar-collapse"
+                id="navbarSupportedContent"
+              >
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link active"
+                      aria-current="page"
+                      to="/"
+                    >
+                      Inicio
+                    </NavLink>
+                  </li>
+
+                  <li className="nav-item dropdown">
+                    <NavLink
+                      className="nav-link dropdown-toggle"
+                      to="/"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Vehículos
+                    </NavLink>
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="navbarDropdown"
+                    >
+                      <li>
+                        <NavLink className="dropdown-item" to="/">
+                          Nuevos
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink className="dropdown-item" to="/">
+                          Usados
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li className="nav-item">
+                    <NavLink className="nav-link " aria-current="page" to="/">
+                      Quienes somos
+                    </NavLink>
+                  </li>
+
+                  <li className="nav-item">
+                    <NavLink className="nav-link " aria-current="page" to="/">
+                      Contacto
+                    </NavLink>
+                  </li>
+                </ul>
+                <form className="d-flex">
+                  <input
+                    className="form-control me-2"
+                    type="search"
+                    placeholder="Buscar"
+                    aria-label="Search"
+                  />
+                  <button
+                    className="btn btn-outline-warning me-2"
+                    type="submit"
+                  >
+                    Buscar
+                  </button>
+                </form>
+
+                <div>
+                  <button className="btn btn-warning me-2">Inicio</button>
+                  <button className="btn btn-warning me-3">Registro</button>
+                </div>
+              </div>
+            </div>
+          </nav>
         </div>
-      </Navbar>
+      </div>
     </div>
   );
 };

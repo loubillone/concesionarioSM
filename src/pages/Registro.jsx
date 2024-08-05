@@ -72,7 +72,7 @@ const Registro = () => {
       setCreateMsg(resp.data.msg);
 
       Swal.fire({
-        position: "top-center",
+        position: "center",
         icon: "success",
         title: createMsg,
         showConfirmButton: false,
