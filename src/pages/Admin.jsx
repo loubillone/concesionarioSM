@@ -8,13 +8,8 @@ import testApi from "../api/testApi";
 
 const Admin = () => {
   const [cargarUsuarios, setCargarUsuarios] = useState([]);
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShowEditar(false);
   const [showEditar, setShowEditar] = useState(false);
-
   const [usuarioEditar, setUsuarioEditar] = useState({});
 
   useEffect(() => {
@@ -38,7 +33,35 @@ const Admin = () => {
   };
 
   const handleChangeEditar = (propiedad, valor) => {
-    console.log(usuarioEditar);
+    setUsuarioEditar({
+      ...usuarioEditar,
+      [propiedad]: valor,
+    });
+  };
+
+  const handleSubmitEditar = (e) => {
+    e.preventDefault();
+
+    //Validar campos
+
+    editarUsuarioDB(usuarioEditar);
+  };
+
+  const editarUsuarioDB = async ({ name, email, rol, _id }) => {
+    try {
+      const resp = await testApi.put("/admin/editarUsuario", {
+        name,
+        email,
+        rol,
+        _id,
+      });
+
+      listaUsuariosBack();
+
+      setShowEditar(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
@@ -127,10 +150,14 @@ const Admin = () => {
 
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>
-                    Close
+                    Cerrar
                   </Button>
-                  <Button variant="primary" type="submit" onClick={handleClose}>
-                    Save Changes
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    onClick={handleSubmitEditar}
+                  >
+                    Guardar cambios
                   </Button>
                 </Modal.Footer>
               </Form>
