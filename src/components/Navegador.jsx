@@ -1,10 +1,4 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import logoSMnegro from "../assets/image/logoSMnegro.jpeg";
 import { Link, NavLink } from "react-router-dom";
 import "../css/navegador.css";
@@ -102,8 +96,13 @@ const Navegador = () => {
                 </form>
 
                 <div>
-                  <button className="btn btn-warning me-2">Inicio</button>
-                  <button className="btn btn-warning me-3">Registro</button>
+                  <NavLink to="/login">
+                    <button className="btn btn-warning me-2">Inicio</button>
+                  </NavLink>
+
+                  <NavLink to="/registro">
+                    <button className="btn btn-warning me-3">Registro</button>
+                  </NavLink>
                 </div>
               </div>
             </div>

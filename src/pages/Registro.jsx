@@ -9,8 +9,6 @@ const Registro = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [createMsg, setCreateMsg] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,10 +53,7 @@ const Registro = () => {
       });
     }
 
-    // setUsuario([name, ...usuario]);
-    // localStorage.setItem("usuarios", JSON.stringify(usuario));
-
-    registrarUsuarioBack(name, email, password);
+    registrarUsuarioBack(name.toLowerCase(), email.toLowerCase(), password);
   };
 
   const registrarUsuarioBack = async (name, email, password) => {
@@ -69,21 +64,20 @@ const Registro = () => {
         password,
       });
 
-      setCreateMsg(resp.data.msg);
-
       Swal.fire({
         position: "center",
         icon: "success",
-        title: createMsg,
+        title: resp.data.msg,
         showConfirmButton: false,
         timer: 1500,
       });
+
+      location.replace("/login");
     } catch (error) {
-      setErrorMsg(error.response.data.msg);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: errorMsg,
+        text: error.response.data.msg,
       });
     }
   };

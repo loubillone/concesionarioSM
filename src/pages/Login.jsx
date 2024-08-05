@@ -7,7 +7,6 @@ import testApi from "../api/testApi";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [msgLogueado, setMsgLogueado] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +23,7 @@ const Login = () => {
       });
     }
 
-    loginBack(email, password);
+    loginBack(email.toLowerCase(), password);
   };
 
   const loginBack = async (email, password) => {
@@ -35,17 +34,22 @@ const Login = () => {
       });
 
       localStorage.setItem("token", resp.data.token);
-      setMsgLogueado(resp.data.msg);
 
       Swal.fire({
         position: "center",
         icon: "success",
-        title: msgLogueado,
+        title: resp.data.msg,
         showConfirmButton: false,
-        timer: 1500,
+        timer: 3000,
       });
+
+      location.replace("/");
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.msg,
+      });
     }
   };
   return (
