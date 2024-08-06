@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import testApi from "../api/testApi";
+import Alert from "react-bootstrap/Alert";
 
 const Admin = () => {
   const [cargarUsuarios, setCargarUsuarios] = useState([]);
@@ -20,6 +21,7 @@ const Admin = () => {
     try {
       const resp = await testApi.get("/admin/listaUsuarios");
 
+      console.log(resp);
       setCargarUsuarios(resp.data.listaUsuarios);
     } catch (error) {
       console.log(error);
@@ -60,16 +62,30 @@ const Admin = () => {
 
       setShowEditar(false);
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.msg,
+      });
     }
   };
 
   const eliminarUsuario = async (id) => {
     try {
       const resp = await testApi.delete(`/admin/eliminarUsuario/${id}`);
+
       listaUsuariosBack();
     } catch (error) {
-      console.log(error);
+      if (error.response.status === 401) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Inicie sesión para poder eliminar usuario",
+        });
+        localStorage.removeItem("token");
+        localStorage.removeItem("login");
+        navegate("/login");
+      }
     }
   };
   return (
