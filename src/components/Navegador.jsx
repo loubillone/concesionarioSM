@@ -6,12 +6,18 @@ import Swal from "sweetalert2";
 
 const Navegador = () => {
   const [tokenStatus, setTokenStatus] = useState(false);
+  const [usuarioLogueado, setUsuarioLogueado] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const usuario = localStorage.getItem("login");
 
     if (token) {
       setTokenStatus(true);
+
+      if (usuario === "admin") {
+        setUsuarioLogueado(true);
+      }
     }
   }, []);
 
@@ -31,6 +37,7 @@ const Navegador = () => {
         });
 
         localStorage.removeItem("token");
+        localStorage.removeItem("login");
         location.replace("/");
       }
     });
@@ -111,6 +118,20 @@ const Navegador = () => {
                       Contacto
                     </NavLink>
                   </li>
+
+                  {usuarioLogueado ? (
+                    <li className="nav-item">
+                      <NavLink
+                        className="nav-link "
+                        aria-current="page"
+                        to="/admin"
+                      >
+                        Panel administrador
+                      </NavLink>
+                    </li>
+                  ) : (
+                    ""
+                  )}
                 </ul>
                 <form className="d-flex">
                   <input
@@ -142,6 +163,10 @@ const Navegador = () => {
                       <button className="btn btn-warning me-2">Inicio</button>
                     </NavLink>
                   )}
+
+                  <NavLink to="/registro">
+                    <button className="btn btn-warning me-2">Registro</button>
+                  </NavLink>
                 </div>
               </div>
             </div>

@@ -34,6 +34,7 @@ const Login = () => {
       });
 
       localStorage.setItem("token", resp.data.token);
+      localStorage.setItem("login", resp.data.payload.rol);
 
       Swal.fire({
         position: "center",
